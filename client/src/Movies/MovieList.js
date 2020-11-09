@@ -1,10 +1,14 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 
 export default function MovieList(props) {
+  const history = useHistory();
   return (
     <div className="movie-list">
       {props.movies.map(movie => (
-        <MovieDetails key={movie.id} movie={movie} />
+        <div onClick={() => history.push(`/movie-list/${movie.id}`)}>
+          <MovieDetails key={movie.id} movie={movie} />
+        </div>
       ))}
     </div>
   );
@@ -12,16 +16,15 @@ export default function MovieList(props) {
 
 function MovieDetails(props) {
   const { title, director, metascore } = props.movie;
-
   return (
-    <div className="movie-card">
-      <h2>{title}</h2>
-      <div className="movie-director">
-        Director: <em>{director}</em>
+      <div className="movie-card">
+        <h2>{title}</h2>
+        <div className="movie-director">
+          Director: <em>{director}</em>
+        </div>
+        <div className="movie-metascore">
+          Metascore: <strong>{metascore}</strong>
+        </div>
       </div>
-      <div className="movie-metascore">
-        Metascore: <strong>{metascore}</strong>
-      </div>
-    </div>
   );
 }
